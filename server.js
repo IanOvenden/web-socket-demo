@@ -19,7 +19,7 @@ wss.on('connection', function(socket) {
     console.log('Received: ' + message);
 
     wss.clients.forEach(function each(client) {
-      var json = JSON.stringify({ message: 'Something changed' });
+      var json = message;
       client.send(json);
       console.log('Sent: ' + json);
     });
@@ -31,14 +31,14 @@ wss.on('connection', function(socket) {
 
 });
 
-var broadcast = function() {
-  var json = JSON.stringify({
-    message: 'Hello hello!'
-  });
+// var broadcast = function() {
+//   var json = JSON.stringify({
+//     message: 'Hello hello!'
+//   });
 
-  wss.clients.forEach(function each(client) {
-    client.send(json);
-    console.log('Sent: ' + json);
-  });
-}
-setInterval(broadcast, 3000);
+//   wss.clients.forEach(function each(client) {
+//     client.send(json);
+//     console.log('Sent: ' + json);
+//   });
+// }
+// setInterval(broadcast, 3000);
