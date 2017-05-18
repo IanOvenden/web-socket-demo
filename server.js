@@ -11,10 +11,6 @@ var wss = new WSS({ port: 8081 });
 wss.on('connection', function(socket) {
   console.log('Opened Connection 🎉');
 
-  var json = JSON.stringify({ message: 'Gotcha' });
-  socket.send(json);
-  console.log('Sent: ' + json);
-
   socket.on('message', function(message) {
     console.log('Received: ' + message);
 
@@ -30,15 +26,3 @@ wss.on('connection', function(socket) {
   });
 
 });
-
-// var broadcast = function() {
-//   var json = JSON.stringify({
-//     message: 'Hello hello!'
-//   });
-
-//   wss.clients.forEach(function each(client) {
-//     client.send(json);
-//     console.log('Sent: ' + json);
-//   });
-// }
-// setInterval(broadcast, 3000);
