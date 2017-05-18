@@ -7,7 +7,7 @@
 			a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}*{font-size:16px}h1,h2{font-family:roboto,sans-serif}h1{color:#5e7c88;font-size:1.5em;padding:5px}a,p{font-family:roboto light,sans-serif}a{color:#feb41c;text-decoration:none}header{background-color:#363f45;height:30px;padding:5px}nav{height:18px;overflow:hidden}.stage{background-color:#5e7c88;display:inline-block;float:left;height:100%;margin:5px;padding:10px;width:200px}.ticket{background-color:#feb41c;height:150px;margin-top:10px;width:100%}
 			td { vertical-align: top }
 			body { padding: 20px;}
-			textarea.list-header {
+			textarea.list-header, textarea.task-title {
 				background: 0 0;
 				border: none;
 				border-radius: 3px;
@@ -21,7 +21,7 @@
 				max-height: 16pc;
 				overflow: hidden;
 			}
-			textarea.list-header:focus {
+			textarea.list-header:focus, textarea.task-title:focus {
 				background-color: #FFFFFF;
 			}
 		</style>
@@ -36,13 +36,13 @@
 			<textarea class="list-header" id="list-title-1">todo</textarea>
 			<div>
 				<article class="ticket">
-					<p>task1</p>
+					<textarea class="task-title" id="task-title-1">Task 1</textarea>
 				</article>
 				<article class="ticket">
-					<p>task2</p>
+					<textarea class="task-title" id="task-title-2">Task 2</textarea>
 				</article>
 				<article class="ticket">
-					<p>task3</p>
+					<textarea class="task-title" id="task-title-3">Task 3</textarea>
 				</article>
 			</div>
 		</div>
@@ -50,10 +50,10 @@
 			<textarea class="list-header" id="list-title-2">todo</textarea>
 			<div>
 				<article class="ticket">
-					<p>task1</p>
+					<textarea class="task-title" id="task-title-4">Task 1</textarea>
 				</article>
 				<article class="ticket">
-					<p>task2</p>
+					<textarea class="task-title" id="task-title-5">Task 2</textarea>
 				</article>
 			</div>
 		</div>
