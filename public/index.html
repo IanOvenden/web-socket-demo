@@ -57,6 +57,80 @@
 				</article>
 			</div>
 		</div>
-		<script src="client.js"></script>
+		<!-- <script src="client.js"></script> -->
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			
+			var socket = io();
+
+			socket.connect_error = function(event) {
+			 	console.log('Error: ' + JSON.stringify(event));
+			}
+
+			socket.on('chat message', function(event){
+				console.log('Received: ' + event);
+				var payload = event;
+
+			})
+
+			socket.on('list-title', function(event){
+				console.log('Received: ' + event);
+				var payload = JSON.parse(event);
+
+				document.querySelector('#list-title-' + payload.id).value = payload.message;
+			})
+
+			socket.on('task-title', function(event){
+				console.log('Received: ' + event);
+				var payload = JSON.parse(event);
+
+				document.querySelector('#task-title-' + payload.id).value = payload.message;
+			})
+
+			document.querySelector('#send').addEventListener('click', function(event) {
+				var json = JSON.stringify({ message: 'Hey there' });
+				socket.emit('chat message', json);
+				log('Sent: ' + json);
+			});
+
+			var listTitles = document.querySelectorAll('.list-header');
+
+			for (var i = 0; i < listTitles.length; i++) {
+				listTitles[i].addEventListener('change', function(event) {
+					var json = JSON.stringify({ 
+						type: 'list-title',
+						id: this.id.replace('list-title-',''),
+						message: this.value 
+					});
+					socket.emit('list-title',json);
+					console.log('Sent: ' + json);
+				});
+			}
+
+			var taskTitles = document.querySelectorAll('.task-title');
+
+			for (var i = 0; i < taskTitles.length; i++) {
+				taskTitles[i].addEventListener('change', function(event) {
+					var json = JSON.stringify({ 
+						type: 'task-title',
+						id: this.id.replace('task-title-',''),
+						message: this.value 
+					});
+					socket.emit('task-title', json);
+					console.log('Sent: ' + json);
+				});
+			}
+
+			var log = function(text) {
+				var li = document.createElement('li');
+				li.innerHTML = text;
+				document.getElementById('log').appendChild(li);
+			}
+
+			window.addEventListener('beforeunload', function() {
+				socket.close();
+			});
+
+		</script>
 	</body>
 </html>

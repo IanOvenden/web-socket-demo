@@ -1,28 +1,30 @@
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-var http = require('http');
-var express = require('express');
-var WSS = require('ws').Server;
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/public/index.html');
+});
 
-var app = express().use(express.static('public'));
-var server = http.createServer(app);
-server.listen(8080, '127.0.0.1');
-
-var wss = new WSS({ port: 8081 });
-wss.on('connection', function(socket) {
-  console.log('Opened Connection 🎉');
-
-  socket.on('message', function(message) {
-    console.log('Received: ' + message);
-
-    wss.clients.forEach(function each(client) {
-      var json = message;
-      client.send(json);
-      console.log('Sent: ' + json);
-    });
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
   });
-
-  socket.on('close', function() {
-    console.log('Closed Connection 😱');
+  socket.on('chat message', function(msg){
+    console.log(msg);
+    io.emit('chat message', msg);
   });
+  socket.on('UPDATE_STAGE_TITLE', function(payload){
+    console.log(payload);
+    io.emit('UPDATE_STAGE_TITLE', payload);
+  });
+  socket.on('task-title', function(msg){
+    console.log(msg);
+    io.emit('task-title', msg);
+  });
+});
 
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
